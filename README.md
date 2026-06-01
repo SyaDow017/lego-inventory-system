@@ -44,31 +44,45 @@ String concatenation in loops is a classic O(n²) trap in Python. Switching to l
 
 ## Setup
 
+### Requirements
+- Python 3
+- Docker
+- WSL (Windows only)
+
+### Installation
+
+1. Install Docker and start the Docker service
+2. Install Python dependencies:
 ```bash
-# Clone the repo
-git clone https://github.com/SyaDow017/lego-inventory-system.git
-cd lego-inventory-system
-
-# Install dependencies
-pip install -r requirements.txt
-
-# Start the database
-bash create_and_run_database.sh
-
-# Import data
-python import_into_database.py
-
-# Run the server
-python server.py
+   pip install -r requirements.txt
+```
+3. Start the database:
+```bash
+   ./create_and_run_database.sh
+```
+4. Create database tables:
+```bash
+   python migrate_database.py
+```
+5. Download `bricklink.json.gz` and place it in the project root
+6. Import data (takes a few minutes):
+```bash
+   python import_into_database.py
+```
+7. Start the server:
+```bash
+   python server.py
 ```
 
-Visit `http://localhost:5000/sets` to browse all LEGO sets.
+Visit `http://127.0.0.1:5000/sets` to browse all LEGO sets.
 
-## Running Tests
+### Database utilities
+- Stop database: `./stop_database.sh`
+- Restart after shutdown: `./start_database_after_stopping.sh`
+- Connect interactively: `./connect_to_database.sh`
 
-```bash
-python -m pytest
-```
+> Note: `bricklink.json.gz` is not included in this repository as it is proprietary LEGO data.
+ 
 
 ## Authors
 
